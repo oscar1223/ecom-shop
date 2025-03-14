@@ -1,0 +1,14 @@
+/* src/styles/Footer.css */
+.footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 12px 0;
+    margin-top: auto; /* Para pegarse al final si el contenido es corto */
+  }
+  
+  .footer p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  

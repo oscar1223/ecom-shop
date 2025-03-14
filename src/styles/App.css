@@ -1,0 +1,21 @@
+/* src/styles/App.css */
+
+/* Reseteo simple (opcional) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: sans-serif;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 16px;
+  background-color: #f6f6f6;
+}
