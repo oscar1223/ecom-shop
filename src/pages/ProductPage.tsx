@@ -4,14 +4,14 @@ import { useParams } from 'react-router-dom'
 import '../styles/ProductPage.css'
 
 const ProductPage: React.FC = () => {
-  const { id } = useParams()
+  const { id, image } = useParams()
 
   // Simular datos de producto
   const productData = {
     id,
     title: `Producto ${id}`,
     description: `Esta es la descripción del producto con ID = ${id}`,
-    image: 'https://via.placeholder.com/300'
+    image: `/${image}`
   }
 
   return (

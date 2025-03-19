@@ -13,17 +13,17 @@ const products: Product[] = [
   {
     id: 1,
     title: 'Producto 1',
-    image: 'https://via.placeholder.com/200'
+    image: '/jordan.png'
   },
   {
     id: 2,
     title: 'Producto 2',
-    image: 'https://via.placeholder.com/200'
+    image: '/oncloud.png'
   },
   {
     id: 3,
     title: 'Producto 3',
-    image: 'https://via.placeholder.com/200'
+    image: '/vstar.png'
   }
 ]
 

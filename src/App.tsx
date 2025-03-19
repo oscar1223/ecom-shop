@@ -6,6 +6,8 @@ import HomePage from './pages/HomePage'
 import ProductPage from './pages/ProductPage'
 import ShippingPage from './pages/ShippingPage'
 import CheckoutPage from './pages/CheckoutPage'
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
 import './styles/App.css' // Importar estilos generales
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
             <Route path="/product/:id" element={<ProductPage />} />
             <Route path="/shipping" element={<ShippingPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
           </Routes>
         </main>
 
