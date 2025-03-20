@@ -1,17 +1,27 @@
 // src/pages/ProductPage.tsx
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import '../styles/ProductPage.css'
+import { useCart } from '../context/CartContext'
 
 const ProductPage: React.FC = () => {
-  const { id, image } = useParams()
+  const { id } = useParams()
+  const navigate = useNavigate()
+  const { addToCart } = useCart()
 
   // Simular datos de producto
   const productData = {
-    id,
+    id: Number(id),
     title: `Producto ${id}`,
     description: `Esta es la descripción del producto con ID = ${id}`,
-    image: `/${image}`
+    image: `/jordan.png`
+  }
+
+  // Función que se ejecuta al pulsar el botón
+  const handleBuy = () => {
+    addToCart({ id: productData.id, title: productData.title, price: 9.99 })
+    // Navegamos a la ruta "/cart"
+    navigate('/cart')
   }
 
   return (
@@ -27,7 +37,7 @@ const ProductPage: React.FC = () => {
         <h1>{productData.title}</h1>
         <p className="product-page__description">{productData.description}</p>
         <p className="product-page__price">$ 9.99</p>
-        <button className="product-page__add-to-cart">Agregar al carrito</button>
+        <button  className="product-page__add-to-cart" onClick={handleBuy}>Añadir al carrito</button>
       </div>
     </div>
   )

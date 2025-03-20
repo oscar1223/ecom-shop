@@ -1,9 +1,16 @@
 // src/components/Header.tsx
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useCart } from '../context/CartContext'
 import '../styles/Header.css'
 
+
 const Header: React.FC = () => {
+  const { cartItems } = useCart()
+
+  const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0)
+
+
   return (
     <header className="header">
       <div className="header__logo">
@@ -12,19 +19,10 @@ const Header: React.FC = () => {
       <nav className="header__nav">
         <ul>
           <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/shipping">Shipping</Link>
-          </li>
-          <li>
-            <Link to="/checkout">Checkout</Link>
+            <Link to="/cart">Carrito ({totalItems})</Link>
           </li>
           <li>
             <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/register">Register</Link>
           </li>
         </ul>
       </nav>
