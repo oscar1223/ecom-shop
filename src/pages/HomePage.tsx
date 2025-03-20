@@ -24,6 +24,36 @@ const products: Product[] = [
     id: 3,
     title: 'Producto 3',
     image: '/vstar.png'
+  },
+  {
+    id: 4,
+    title: 'Producto 4',
+    image: '/vstar.png'
+  },
+  {
+    id: 5,
+    title: 'Producto 5',
+    image: '/vstar.png'
+  },
+  {
+    id: 6,
+    title: 'Producto 6',
+    image: '/vstar.png'
+  },
+  {
+    id: 7,
+    title: 'Producto 7',
+    image: '/vstar.png'
+  },
+  {
+    id: 8,
+    title: 'Producto 8',
+    image: '/vstar.png'
+  },
+  {
+    id: 9,
+    title: 'Producto 9',
+    image: '/vstar.png'
   }
 ]
 

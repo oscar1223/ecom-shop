@@ -8,9 +8,12 @@ const CartPage: React.FC = () => {
   const { cartItems, removeFromCart, clearCart } = useCart()
   const navigate = useNavigate()
 
-  // Ejemplo: Al pulsar "Proceder al Checkout", iremos a Shipping
   const handleCheckout = () => {
-    navigate('/shipping')
+    navigate('/checkout')
+  }
+
+  const keepShopping = () => {
+    navigate('/')
   }
 
   if (cartItems.length === 0) {
@@ -46,6 +49,7 @@ const CartPage: React.FC = () => {
       </div>
       <div className="cart-actions">
         <button onClick={clearCart} className="btn-clear">Vaciar Carrito</button>
+        <button onClick={keepShopping} className="btn-clear">Seguir comprando</button>
         <button onClick={handleCheckout} className="btn-checkout">Proceder al Checkout</button>
       </div>
     </div>
