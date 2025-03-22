@@ -10,22 +10,60 @@ const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+  // Manejo de estados para feedback
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState<boolean>(false)
 
-    // Aquí podrías validar credenciales. Ejemplo ficticio:
-    if (email === 'admin@test.com' && password === '123456') {
-      alert('¡Login exitoso!')
-      // Redirigir a donde quieras, ej: la home o el dashboard
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000'
+  
+  // Manejador del formulario
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    setError(null)
+
+    // Llamar a tu endpoint de login en el backend NestJS
+    // Ajusta la ruta según tu implementación (por ejemplo: /auth/login).
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      })
+      
+      // si no es 200 OK
+      if (!response.ok) {
+        // Podrías verificar si es 401, 403, etc.
+        throw new Error('Credenciales inválidas o error en el servidor.')
+      }
+
+      // Suponiendo que recibes un objeto con { token, user }
+      const data = await response.json()
+      console.log('Login exitoso:', data)
+
+      // Ejemplo: guardar el token en localStorage
+      localStorage.setItem('token', data.token)
+
+      // Si quieres guardar información de usuario
+      // localStorage.setItem('user', JSON.stringify(data.user))
+
+      // Redirigir a la Home o a un dashboard:
       navigate('/')
-    } else {
-      alert('Credenciales inválidas.')
+
+    } catch (err: any) {
+      setError(err.message)
+      console.error(err)
+    } finally {
+      setLoading(false)
     }
   }
 
   return (
     <div className="login-container">
       <h1>Iniciar Sesión</h1>
+      
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      
       <form onSubmit={handleSubmit} className="login-form">
         <div className="form-group">
           <label htmlFor="email">Correo Electrónico</label>
@@ -36,6 +74,7 @@ const LoginPage: React.FC = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            disabled={loading}
           />
         </div>
 
@@ -48,10 +87,13 @@ const LoginPage: React.FC = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            disabled={loading}
           />
         </div>
 
-        <button type="submit" className="btn-login">Acceder</button>
+        <button type="submit" className="btn-login" disabled={loading}>
+          {loading ? 'Cargando...' : 'Acceder'}
+        </button>
 
         <div className="register-link">
           ¿No tienes cuenta? <Link to="/register">Regístrate aquí</Link>.

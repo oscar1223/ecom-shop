@@ -10,32 +10,57 @@ const RegisterPage: React.FC = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const API_BASE_URL: string = 'http://localhost:3000'
+
+  // Manejo de estado para posibles mensajes o errores
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState<boolean>(false)
+
+
+
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    // Validaciones básicas
-    if (!email || !name || !password || !confirmPassword) {
-      alert('Completa todos los campos.')
+    if (password !== confirmPassword){
+      setError('Las contraseñas no coinciden')
       return
     }
 
-    if (password !== confirmPassword) {
-      alert('Las contraseñas no coinciden.')
-      return
+    try {
+      setError(null)
+      setSuccess(false)
+
+
+      const body = {
+        email,
+        password,
+        name
+      }
+      const res = await fetch(`${API_BASE_URL}/users/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+      if (!res.ok) throw new Error('Error al crear usuario')
+      const userCreated = await res.json()
+      console.log('Usuario creado:', userCreated)
+      setSuccess(true)
+      navigate('/login')
+    } catch (err: any) {
+      console.error(err)
+      setError(err.message || 'Error al crear usuario')
     }
-
-    // Aquí harías una petición a tu backend para registrar al usuario
-    // Ejemplo ficticio:
-    alert(`Registro exitoso del usuario: ${name} con correo: ${email}`)
-
-    // Luego puedes redirigirlo a login o a la home
-    navigate('/login')
   }
 
   return (
     <div className="register-container">
       <h1>Registro</h1>
-      <form onSubmit={handleSubmit} className="register-form">
+
+      {/* Mostrar un posible error */}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {success && <p style={{ color: 'green' }}>¡Usuario creado con éxito!</p>}
+
+      <form onSubmit={handleRegister} className="register-form">
         <div className="form-group">
           <label htmlFor="name">Nombre</label>
           <input
