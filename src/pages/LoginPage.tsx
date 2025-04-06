@@ -48,7 +48,7 @@ const LoginPage: React.FC = () => {
       // localStorage.setItem('user', JSON.stringify(data.user))
 
       // Redirigir a la Home o a un dashboard:
-      navigate('/')
+      navigate('/admin')
 
     } catch (err: any) {
       setError(err.message)
