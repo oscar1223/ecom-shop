@@ -43,11 +43,14 @@ const LoginPage: React.FC = () => {
 
       // Ejemplo: guardar el token en localStorage
       localStorage.setItem('token', data.token)
+      localStorage.setItem('user', JSON.stringify(data.user))
 
       // Si quieres guardar información de usuario
-      // localStorage.setItem('user', JSON.stringify(data.user))
+      //localStorage.setItem('user', JSON.stringify(data.user))
+      console.log('Usuario:', data.user)
 
       // Redirigir a la Home o a un dashboard:
+      console.log('Token y user recibidos. Navegando a /admin...')
       navigate('/admin')
 
     } catch (err: any) {
